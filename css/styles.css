@@ -1,0 +1,34 @@
+body {
+    font-family: "Quicksand", Arial, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #595959;
+    background: #fff; 
+}
+.chat .messages{
+    margin-left: 550px;
+    margin-top: 150px;
+    border: 1px solid #ccc;
+    width: 460px;
+    height: 300px;
+    padding: 10px;
+    overflow-y: scroll;
+}
+
+.chat .message{
+    color: slategrey;
+}
+
+.chat .message p{
+    margin: 5px 0;
+}
+
+.chat .entry{
+    margin-left: 550px;
+    width: 460px;
+    height: 70px;
+    padding: 5px;
+    margin-top: 5px;
+    font: 1em Arial;
+}
