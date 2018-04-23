@@ -85,7 +85,7 @@ include('database_connection.php');
 									 echo "<table class='table'>
 									 <thead>
 									 <tr>
-										 <th>#</th>
+										 <th>Booking Id</th>
 										 <th>Tour Name</th>
 										 <th>Tour Country</th>
 										 <th>Total Payment</th>

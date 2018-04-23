@@ -1,6 +1,8 @@
 <?php
 include('database_connection.php');
 session_start();
+$_SESSION['tour_type'] = 1;
+$_SESSION['group_id'] = 0;
 $new_query = 'select distinct tour_id, tour_name, tour_country, duration, standard_price, premium_price, image_link from destinations';
 $added_condition = false;
 $give_suggestions = true;

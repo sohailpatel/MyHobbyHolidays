@@ -11,6 +11,7 @@ $group_id = $_SESSION['group_id'];
 $checkin_time = strtotime($checkin_date);
 $formated_date = date('Y-m-d',$checkin_time);
 $insert_sql = 'insert into tour_bookings(tour_id, tour_type, hotel_id,booked_by, group_id, total_cost, booking_date, booking_status) values('.$tour_id.','. $tour_type .','. $hotel_id .',\''. $user_id .'\','. $group_id .','. $tour_price .',\''. $formated_date .'\',1)';
+echo $insert_sql;
 $insert_result = mysqli_query($conn, $insert_sql) or die ("break here");
 if (!$insert_result){
 	echo "Error creating database: " . mysql_error();
@@ -96,7 +97,7 @@ echo "
 								echo "<table class='table'>
 								<thead>
 								<tr>
-									<th>#</th>
+									<th>Booking Id</th>
 									<th>Tour Name</th>
 									<th>Tour Country</th>
 									<th>Total Payment</th>

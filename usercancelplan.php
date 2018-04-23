@@ -70,7 +70,7 @@ session_start();
 			$sqlUpdate="UPDATE tour_bookings SET booking_status = '0' WHERE booking_id='".$tourid."' AND booked_by = '".$username."'";
 			if (mysqli_query($db, $sqlUpdate))
 		   {
-			   echo '<script type="text/javascript">alert("The user has been cancelled"); </script>';
+			   echo '<script type="text/javascript">alert("The plan has been cancelled"); </script>';
 		   }
 		   else{
 		      	echo '<script type="text/javascript">alert("Cancelling failed. Please check Tour ID."); </script>';
