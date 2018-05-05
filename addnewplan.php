@@ -7,7 +7,7 @@ ob_start();
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Tour Template</title>
+	<title>Add Plan</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="" />
 	<meta name="keywords" content="" />
@@ -66,13 +66,22 @@ ob_start();
 		include('header.php');
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$name = mysqli_real_escape_string($db,$_POST['name']);
-		       $country = mysqli_real_escape_string($db,$_POST['country']); 
-		       $duration = mysqli_real_escape_string($db,$_POST['duration']); 
-		       $standardprice = mysqli_real_escape_string($db,$_POST['standardprice']); 
-		       $premiumprice = mysqli_real_escape_string($db,$_POST['premiumprice']); 
-
-		      
-			$sql="INSERT INTO destinations(tour_name,duration,standard_price,premium_price,tour_country) values ('".$name."','".$duration."','".$standardprice."','".$premiumprice."','".$country."')";
+			$country = mysqli_real_escape_string($db,$_POST['country']); 
+			$duration = mysqli_real_escape_string($db,$_POST['duration']); 
+			$standardprice = mysqli_real_escape_string($db,$_POST['standardprice']); 
+			$premiumprice = mysqli_real_escape_string($db,$_POST['premiumprice']); 
+		    $find_id_sql = 'select max(tour_id) as tour_id from destinations';
+			$find_tour_result = mysqli_query($db, $find_id_sql) or die ("break here");
+			if (!$find_tour_result){
+				echo "Error creating database: " . mysql_error();
+			}
+			else{
+				while($row = $find_tour_result->fetch_assoc()) {
+					$tour_id = $row["tour_id"];
+				}
+			}
+			$tour_id += 1;
+			$sql="INSERT INTO destinations(tour_id,tour_name,duration,standard_price,premium_price,tour_country) values (". $tour_id .",'".$name."','".$duration."','".$standardprice."','".$premiumprice."','".$country."')";
 		   if (mysqli_query($db, $sql))
 		   {
 			   echo '<script type="text/javascript">alert("The plan has been added"); </script>';

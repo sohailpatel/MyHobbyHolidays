@@ -7,7 +7,7 @@ ob_start();
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Tour Template</title>
+	<title>Admin View Plans</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="" />
 	<meta name="keywords" content="" />
@@ -87,7 +87,7 @@ ob_start();
 								    <th>Premium Price</th></tr></thead>';
 								    while($row = $result->fetch_assoc()) {
 								    	echo '<tr>';
-								        echo '<td>' .$row["tour_id"]. '</td><td>' .$row["tour_name"]. '</td><td>' .$row["tour_country"]. '</td><td>' . $row["duration"].'</td><td>'. $row["standard_price"].'</td><td>' . $row["premium_price"].'</td>';
+								        echo '<td><a href="#" onclick="callUpdateTours(this.name)" name='. $row["tour_id"] .'>' .$row["tour_id"]. '</a></td><td>' .$row["tour_name"]. '</td><td>' .$row["tour_country"]. '</td><td>' . $row["duration"].'</td><td>'. $row["standard_price"].'</td><td>' . $row["premium_price"].'</td>';
 								        echo '</tr>';
 								    }
 								    echo '</table>';
@@ -107,6 +107,13 @@ ob_start();
 		<?php
 		include 'footer.html';
 		?>
+		<script>
+			function callUpdateTours(tourId) {
+			var tourId = "tour-id" + "=" + tourId;
+			document.cookie= tourId;
+			window.location='updatetours.php';
+		}
+		</script>
 	</body>
 </html>
 

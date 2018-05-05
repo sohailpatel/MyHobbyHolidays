@@ -7,7 +7,7 @@ ob_start();
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Tour Template</title>
+	<title>Signup Page</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="" />
 	<meta name="keywords" content="" />
@@ -132,8 +132,19 @@ ob_start();
 							$_SESSION['UserID'] = $rowGet["UserID"];
 							$_SESSION['firstName'] = $rowGet["FirstName"];
 				        	echo '<script type="text/javascript">alert("You have successfully signed up!"); </script>';
-
-			  		        header("location: userdashboard.php");
+							$to      = $myusername;
+							$message = "<b>You have just signed up.</b>";
+							$message .= "<h1>Lets start your first tour with <a href='http://ella.ils.indiana.edu/~szpatel/HappyHolidays-InfoArch/login.php'>MyHobbyHolidays</a></h1>";
+							$message .= "<b>Username for the account is ". $myusername ."</b></br>";
+							$header .= "MIME-Version: 1.0\r\n";
+							$header .= "Content-type: text/html\r\n";
+							$retval = mail ($to,$subject,$message,$header);
+							
+							if( !$retval) {
+								echo "Message sent successfully...";
+							}
+							header("location: userdashboard.php");
+							 
 					   }
 					   else{
 		      	echo '<script type="text/javascript">alert("Sign up failed. Please try again!"); </script>';

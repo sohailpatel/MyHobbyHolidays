@@ -22,8 +22,8 @@
                                         }
                                     ?>
                                     <li><a href='tours.php'>Tours</a></li>   
-                                    <li><a href='about.html'>About</a></li>
-                                    <li><a href='contact.html'>Contact</a></li>
+                                    <li><a href='about.php'>About</a></li>
+                                    <li><a href='contact.php'>Contact</a></li>
                                     <li class='has-dropdown'>
                                     <?php
                                         if($_SESSION['login_user']){

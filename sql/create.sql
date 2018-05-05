@@ -1,4 +1,4 @@
-create table destinations(tour_id int PRIMARY KEY AUTO_INCREMENT,tour_name varchar(50),tour_country varchar(50),duration int, standard_price int, premium_price int, tag varchar(20), image_link varchar(20), description text);
+create table destinations(tour_id int,tour_name varchar(50),tour_country varchar(50),duration int, standard_price int, premium_price int, tag varchar(20), image_link varchar(20), description text);
 
 insert into destinations values(1,"Rome as you like","Italy", 7, 2000, 3500, "Arts", "tour-1.jpg","Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.");
 insert into destinations values(1,"Rome as you like","Italy", 7, 2000, 3500, "History", "tour-1.jpg","Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.");
@@ -33,9 +33,7 @@ insert into hotels values(7,"Georgian Hotel",200,"hotel-7.jpg","Along with a res
 insert into hotels values(8,"The Park Land",700,"hotel-8.jpg","Located in middle of the city, this luxury hotel is within a 10-minute walk of Royal National Theatre, Tate Modern, and Southbank Centre.");
 
 
-create table tour_bookings(booking_id int PRIMARY KEY AUTO_INCREMENT, tour_id int references destination(tour_id), tour_type int, hotel_id int, booked_by int references user(user_id), group_id int references group(group_id), total_cost decimal, booking_date date, booking_status int);
-
-create table tour_bookings(booking_id int PRIMARY KEY AUTO_INCREMENT, tour_id int, tour_type int, hotel_id int,booked_by varchar(45), group_id int, total_cost decimal, booking_date date, booking_status int);
+create table tour_bookings(booking_id int PRIMARY KEY AUTO_INCREMENT, tour_id int references destinations(tour_id), tour_type int, hotel_id int references hotels(hotel_id),booked_by varchar(45) references USER_INFORMATION(EMAIL), group_id int, total_cost decimal, booking_date date, booking_status int);
 
 
 drop table destinations;

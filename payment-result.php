@@ -11,10 +11,22 @@ $group_id = $_SESSION['group_id'];
 $checkin_time = strtotime($checkin_date);
 $formated_date = date('Y-m-d',$checkin_time);
 $insert_sql = 'insert into tour_bookings(tour_id, tour_type, hotel_id,booked_by, group_id, total_cost, booking_date, booking_status) values('.$tour_id.','. $tour_type .','. $hotel_id .',\''. $user_id .'\','. $group_id .','. $tour_price .',\''. $formated_date .'\',1)';
-echo $insert_sql;
 $insert_result = mysqli_query($conn, $insert_sql) or die ("break here");
 if (!$insert_result){
 	echo "Error creating database: " . mysql_error();
+}
+else{
+	$to      = $user_id;
+	$message = "<b>Your Booking has been confirmed.</b>";
+	$message .= "<h1>Thanks for booking a tour with <a href='http://ella.ils.indiana.edu/~szpatel/HappyHolidays-InfoArch/login.php'>MyHobbyHolidays</a></h1>";
+	$message .= "<b>You have booked a tour on ". $checkin_date ."</b></br>";
+	$message .= "<b>Total payment received is ". $tour_price ."</b>";
+	$header .= "MIME-Version: 1.0\r\n";
+	$header .= "Content-type: text/html\r\n";
+	$retval = mail ($to,$subject,$message,$header);
+	if( !$retval) {
+		echo "Email could not be send";
+	}
 }
 echo "
 <!DOCTYPE HTML>
@@ -22,7 +34,7 @@ echo "
 	<head>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible'content='IE=edge'>
-	<title>Tour Template</title>
+	<title>Payment Result</title>
 	<meta name='viewport'content='width=device-width, initial-scale=1'>
 	<meta name='description'content=''/>
 	<meta name='keywords'content=''/>

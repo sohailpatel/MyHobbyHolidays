@@ -1971,3 +1971,17 @@ input[type="text"] {
 
 .js .animate-box {
   opacity: 0; }
+.formInput{
+    margin-top: 30px; 
+    font-size: 18px; 
+    width: 100%;
+    padding-right: 3em;
+    border: none;border: 2px 
+    solid #fff;background: #fff;
+    color: #333333 !important;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    border-radius: 30px;
+    width: 80%; 
+  }

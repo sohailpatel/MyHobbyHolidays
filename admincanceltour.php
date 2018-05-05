@@ -1,13 +1,12 @@
 <?php
 session_start();
-ob_start();
 ?>
 <!DOCTYPE HTML>
 <html>
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Block User</title>
+	<title>Cancel Plan</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="" />
 	<meta name="keywords" content="" />
@@ -64,38 +63,40 @@ ob_start();
 	<?php
 		include('session.php');
 		include('header.php');
+		$username = $_SESSION['login_user'];
+
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-			$email = mysqli_real_escape_string($db,$_POST['email']);
-			$sqlUpdate="UPDATE USER_INFORMATION SET Status = 'BLOCKED' WHERE Email = '".$email."'";
-		   if (mysqli_query($db, $sqlUpdate))
+			$tourid = mysqli_real_escape_string($db,$_POST['tourid']);
+			$sqlUpdate="delete from destinations where tour_id=".$tourid;
+			if (mysqli_query($db, $sqlUpdate))
 		   {
-			   echo '<script type="text/javascript">alert("The user has been blocked"); </script>';
+			   echo '<script type="text/javascript">alert("The plan has been cancelled"); </script>';
 		   }
 		   else{
-		         $error = "Blocking failed";  
+		      	echo '<script type="text/javascript">alert("Cancelling failed. Please check Tour ID."); </script>';
+		        $error = "Cancelling failed";  
 		   }
 		}
 	?>
 	<div class="colorlib-loader"></div>
 
 	<div id="page">
-		<div id="colorlib-contact" style="margin-top: 100px">
+		<div id="colorlib-contact" style="margin-top: 100px"> 
 			<div class="container">
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1 animate-box">
-						<h3>Block User</h3>
+						<h3>Cancel a Plan</h3>
 						<form method="post">
 
 						<div class="row form-group">
 								<div class="col-md-12">
-									<label for="email">User ID</label>
-									<input type="text" id="email" name="email" class="form-control" placeholder="Enter username to be blocked" required="true">
+									<label for="email">Tour ID</label>
+									<input type="text" id="tourid" name="tourid" class="form-control" placeholder="Tour ID" required="true">
 								</div>
 							</div>
-
 							
 							<div class="form-group text-center">
-								<input type="submit" value="Block" class="btn btn-primary">
+								<input type="submit" value="Delete Tour" class="btn btn-primary" >
 							</div>
 							
 						</form>		

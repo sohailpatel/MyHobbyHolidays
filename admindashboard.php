@@ -7,7 +7,7 @@ ob_start();
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Tour Template</title>
+	<title>Admin Dashboard</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="" />
 	<meta name="keywords" content="" />
@@ -84,8 +84,9 @@ ob_start();
 						<br>
 						<h3>Manage Plans</h3>
 						<div class="list-group">
-						  <a href="adminviewplans.php" class="list-group-item list-group-item-action">View Plans</a>
-						  <a href="addnewplan.php" class="list-group-item list-group-item-action">Add new plans</a>
+						  <a href="adminviewplans.php" class="list-group-item list-group-item-action">View/Update Plans</a>
+						  <a href="addnewplan.php" class="list-group-item list-group-item-action">Add new Plan</a>
+						  <a href="admincanceltour.php" class="list-group-item list-group-item-action">Delate a Plan</a>
 						</div>
 					</div>
 					

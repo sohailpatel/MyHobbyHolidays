@@ -4,7 +4,7 @@ class Core{
     private $rows;
 
     public function __construct(){
-        $host='127.0.0.1';
+        $host='localhost';
         $user='root';
         $pass='root';
         $db='myhobbyholidays';

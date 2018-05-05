@@ -7,7 +7,7 @@ ob_start();
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Tour Template</title>
+	<title>Login Page</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="" />
 	<meta name="keywords" content="" />
@@ -57,23 +57,7 @@ ob_start();
 	<!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
-		<style type="text/css">
-		.formInput{
-			margin-top: 30px; 
-			font-size: 18px; 
-			width: 100%;
-			padding-right: 3em;
-			border: none;border: 2px 
-			solid #fff;background: #fff;
-			color: #333333 !important;
-			-webkit-border-radius: 30px;
-			-moz-border-radius: 30px;
-			-ms-border-radius: 30px;
-			border-radius: 30px;
-			width: 80%; 
-		}
-	</style>
-
+		
 	</head>
 	<body>
 	<?php
@@ -85,14 +69,15 @@ ob_start();
 		       $myusername = mysqli_real_escape_string($db,$_POST['email']);
 		       $pwd = mysqli_real_escape_string($db,$_POST['password']); 
 		       $mypassword = md5($pwd);
-		      $sql = "SELECT  * FROM USER_INFORMATION WHERE Email = '$myusername' and Password = '$mypassword'";
+		      $sql = "SELECT * FROM USER_INFORMATION WHERE Email = '$myusername' and Password = '$mypassword'";
+			 echo $sql;
 			  $result = mysqli_query($db,$sql);
 		      $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
 		      //$active = $row['active'];
 		      
 		      $count = mysqli_num_rows($result);
 		      
-		      // If result matched $myusername and $mypassword, table row must be 1 row
+		      //If result matched $myusername and $mypassword, table row must be 1 row
 				
 		      if($count == 1) {
 		        $_SESSION['login_user'] = $myusername;

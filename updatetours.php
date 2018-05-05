@@ -1,5 +1,7 @@
 <?php
 session_start();
+ob_start();
+$tour_id = $_COOKIE["tour-id"];
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -76,7 +78,7 @@ session_start();
 		include('header.php');
    
 		$username = $_SESSION['login_user'];
-		      $sql = "SELECT  * FROM USER_INFORMATION WHERE Email = '$username'";
+		      $sql = "SELECT distinct tour_id, tour_name, tour_country, duration, standard_price, premium_price FROM destinations WHERE tour_id = '$tour_id'";
 		      $result = mysqli_query($db,$sql);
 		      $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
 		
@@ -87,14 +89,11 @@ session_start();
 	      		echo '<script type="text/javascript">
 	      		$(document).ready(function() {
 				    console.log( "ready! php" );
-				    document.getElementById("firstname").value ="'. $row["FirstName"].'";
-				    document.getElementById("lastname").value ="'. $row["LastName"].'";
-				    document.getElementById("phone").value ="'. $row["Phone"].'";
-				    document.getElementById("street").value ="'. $row["Street"].'";
-				    document.getElementById("zip").value ="'. $row["Zip"].'";
-				    document.getElementById("city").value ="'. $row["City"].'";
-				    document.getElementById("state").value ="'. $row["State"].'";
-				    document.getElementById("hobby").value ="'. $row["Hobbies"].'";
+				    document.getElementById("tourname").value ="'. $row["tour_name"].'";
+				    document.getElementById("tourcountry").value ="'. $row["tour_country"].'";
+				    document.getElementById("duration").value ="'. $row["duration"].'";
+				    document.getElementById("standardprice").value ="'. $row["standard_price"].'";
+				    document.getElementById("premiumprice").value ="'. $row["premium_price"].'";
 				});
 	      		</script>';
 		      	}
@@ -103,25 +102,20 @@ session_start();
 		      	if($_SERVER["REQUEST_METHOD"] == "POST") {
 		      // username and password sent from form 
 			      
-			       $phone = mysqli_real_escape_string($db,$_POST['phone']); 
-			       $firstname = mysqli_real_escape_string($db,$_POST['firstname']); 
-			       $lastname = mysqli_real_escape_string($db,$_POST['lastname']); 
-			       $street = mysqli_real_escape_string($db,$_POST['street']); 
-			       $city = mysqli_real_escape_string($db,$_POST['city']); 
-			       $zip = mysqli_real_escape_string($db,$_POST['zip']); 
-			       $state = mysqli_real_escape_string($db,$_POST['state']); 
-			       $hobby = mysqli_real_escape_string($db,$_POST['hobby']);
-			      
-		      		$sqlUpdate="UPDATE USER_INFORMATION SET FirstName = '".$firstname."' ,LastName = '".$lastname."',Phone ='".$phone."',Street='".$street."',City='".$city."',State = '".$state."',Zip ='".$zip."', Hobbies='".$hobby."' WHERE Email = '".$username."'";
-					   if (mysqli_query($db, $sqlUpdate))
-					   {
-						   echo '<script type="text/javascript">alert("Update successful!")</script>';
-						   //header("location: welcome.php");
-					   }
-					   else{
+			       $tourname = mysqli_real_escape_string($db,$_POST['tourname']); 
+			       $tourcountry = mysqli_real_escape_string($db,$_POST['tourcountry']); 
+			       $duration = mysqli_real_escape_string($db,$_POST['duration']); 
+			       $standardprice = mysqli_real_escape_string($db,$_POST['standardprice']); 
+			       $premiumprice = mysqli_real_escape_string($db,$_POST['premiumprice']); 
+		      		$sqlUpdate="UPDATE destinations SET tour_name = '".$tourname."' ,tour_country = '".$tourcountry."',duration =".$duration.",standard_price=".$standardprice.",premium_price=".$premiumprice." where tour_id=".$tour_id;
+					if (mysqli_query($db, $sqlUpdate))
+					{
+						echo '<script type="text/javascript">alert("Update successful!")</script>';
+						//header("location: admindashboard.php");
+					}
+					else{
 			      	echo '<script type="text/javascript">alert("Update Failed"); </script>';
-			         $error = "Update failed!";
-		      
+					 $error = "Update failed!";
 		   }
 		}
 	?>
@@ -142,28 +136,17 @@ session_start();
 								<div class="col-md-12 col-md-offset-0">
 									<div class="form-group" style = "width : 80%"">
 
-										<input type="text" class="form-control formInput" name="firstname" id="firstname" placeholder="First Name" style="float:left;" required="true">
+										<input type="text" class="form-control formInput" name="tourname" id="tourname" placeholder="Tour Name" style="width:100%;" required="true">
 
-										<input type="text" class="form-control formInput" name="lastname" id="lastname" placeholder="Last Name" style="float:right;" required="true">
+										<input type="text" class="form-control formInput" name="tourcountry" id="tourcountry" placeholder="Tour Country" style="float:left;" required="true">
 
-										<input type="text" class="form-control formInput" name="phone" id="phone" placeholder="Phone number" style="float:left;" required="true">
+										<input type="text" class="form-control formInput" name="duration" id="duration" placeholder="Duration" style="float:right;" required="true">
 
-										<input type="text" class="form-control formInput" name="street" id="street" placeholder="Street" style="float:left;width: 100%" required="true">
+										<input type="text" class="form-control formInput" name="standardprice" id="standardprice" placeholder="Standard Price" style="float:left;" required="true">
 
-											<input type="text" class="form-control formInput" name="city" id="city" placeholder="City" style="float:left;" required="true">
+										<input type="text" class="form-control formInput" name="premiumprice" id="premiumprice" placeholder="Premium Price" style="float:right;" required="true">
 
-										<input type="text" class="form-control formInput" name="state" id="state" placeholder="State" style="float:right;" required="true">
-
-										<input type="text" class="form-control formInput" name="zip" id="zip" placeholder="Zip Code" style="float:left;" required="true">
-
-										<div style="width: 100% ; height: auto;float: left;background-color: grey; margin-top: 20px;">
-											<input type="text" class="form-control formInput" name="hobby" id="hobby" placeholder="Hobby" style="float:left;margin-left: 5px;" readonly="false">
-											<div style="width: 100% ; height: auto;float: left;margin-top: 15px;">
-												<label class="hobbyChoice">History</label> <label class="hobbyChoice">Architecture</label><label class="hobbyChoice">Marine</label>
-												<label class="hobbyChoice">Sculpture</label> <label class="hobbyChoice">Adventure</label><label class="hobbyChoice">Arts</label><label class="hobbyChoice">Nature</label><label class="hobbyChoice">Sports</label><label class="hobbyChoice">Food</label>
-											</div>
-										</div>
-											<input type="submit" class=" btn btn-primary" value="Submit" placeholder="Enter your email" style="width :60%;margin-top: 30px; background-color: #FFDD00";>
+										<input type="submit" class=" btn btn-primary" value="Submit" style="width :60%;margin-top: 30px; background-color: #FFDD00";>
 
 									</div>
 								</div>
